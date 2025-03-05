@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 import math
 from pathlib import Path
-<<<<<<< HEAD
 
 
 df = pd.read_csv("co2.csv")
@@ -54,5 +53,3 @@ else:
     st.write("No numerical columns found in the dataset.")
 
 
-=======
->>>>>>> 56b7518 (new commit)
