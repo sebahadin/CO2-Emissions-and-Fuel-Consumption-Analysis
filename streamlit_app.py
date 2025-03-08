@@ -53,3 +53,12 @@ else:
     st.write("No numerical columns found in the dataset.")
 
 
+
+
+st.title("Google Looker Dashboard in Streamlit")
+
+# Replace with your actual Looker Studio Embed URL
+looker_url = "https://lookerstudio.google.com/embed/reporting/8661ccb3-712d-45a7-b2c4-3a0468114c5a/page/lIl5E"
+
+# Embed Looker Dashboard
+st.components.v1.iframe(looker_url, width=900, height=600)
