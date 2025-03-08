@@ -22,8 +22,6 @@ st.sidebar.header("Select Dataset")
 
 
 
-
-
 app_mode = st.sidebar.selectbox('Select a page >> ',['01 Introduction','02 Data visualization','04 Prediction'])
 
 
@@ -105,6 +103,11 @@ if app_mode == '02 Data visualization':
 
     # Embed Looker Dashboard
     st.components.v1.iframe(looker_url, width=900, height=600)
+
+
+
+
+    
 
 
 if app_mode == '04 Prediction':
