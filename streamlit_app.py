@@ -9,6 +9,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_absolute_error
 
+from PIL import Image
 
 
 
@@ -33,10 +34,18 @@ df = pd.read_csv("co2.csv")
 
 
 if app_mode == '01 Introduction':
+
+
+    image = Image.open("q.jpg")  # Replace with your image filename
+
+    st.image(image, use_container_width=True)
+
+    # Load the dataset
+    df = pd.read_csv("co2.csv")
+
     # Page Title and Introduction
     st.title("CO₂ Emissions and Fuel Consumption Analysis")
     st.header("Understanding Vehicle Emissions")
-
 
     st.write("""
     This dataset explores vehicle fuel consumption and CO₂ emissions, aiming to understand 
@@ -59,26 +68,30 @@ if app_mode == '01 Introduction':
     st.subheader("Dataset Overview")
     st.dataframe(filtered_df)
 
-    # Dataset Description
+    # Numerical Analysis
     st.header("Numerical Analysis")
 
     # Selecting numerical columns
     numerical_columns = df.select_dtypes(include=['number']).columns
 
     if not numerical_columns.empty:
+        # Summary Statistics
         st.write("### Summary Statistics")
         st.dataframe(df[numerical_columns].describe().T.style.format("{:.2f}"))
 
+        # Additional Metrics
         st.write("### Additional Metrics")
-        stats_df = pd.DataFrame({
-            "Mean": df[numerical_columns].mean(),
+        additional_metrics = pd.DataFrame({
             "Median": df[numerical_columns].median(),
-            "Standard Deviation": df[numerical_columns].std()
+            "Mode": df[numerical_columns].mode().iloc[0],  # Mode might return multiple values; take the first one
+            "Range": df[numerical_columns].max() - df[numerical_columns].min(),
+            "Missing Values": df[numerical_columns].isnull().sum()
         }).T
 
-        st.dataframe(stats_df.style.format("{:.2f}"))
+        st.dataframe(additional_metrics.style.format("{:.2f}"))
     else:
         st.write("No numerical columns found in the dataset.")
+
 
 
 
