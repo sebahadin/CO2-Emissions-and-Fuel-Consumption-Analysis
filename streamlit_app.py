@@ -96,7 +96,51 @@ if app_mode == '01 Introduction':
 if app_mode == '02 Data visualization':
     st.title("Data Visualization")
 
-    st.title("Google Looker Dashboard in Streamlit")
+
+
+    st.markdown("### ")
+
+    # Scatter plot to show the CO2 Emissions against miles per gallon
+    # Create figure and axis
+    fig, ax = plt.subplots(figsize=(10, 6))
+
+    # Set black background
+    ax.set_facecolor((0.15, 0.15, 0.2))  # Change the plot background to black
+    fig.patch.set_facecolor(((0.15, 0.15, 0.2)))  # Change the figure background to black
+
+    # Scatter plot with Seaborn
+    sns.scatterplot(
+        data=df, 
+        x="Fuel Consumption Comb (L/100 km)", 
+        y="CO2 Emissions(g/km)", 
+        hue="Fuel Type", 
+        ax=ax
+    )
+
+    # Change text and ticks to white for visibility
+    ax.xaxis.label.set_color("white")
+    ax.yaxis.label.set_color("white")
+    ax.tick_params(axis="x", colors="white")
+    ax.tick_params(axis="y", colors="white")
+    ax.title.set_color("white")
+
+    legend = ax.legend()
+    for text in legend.get_texts():
+        text.set_color("white")  # Change legend text to white
+
+    legend.get_frame().set_facecolor("black")  # Change legend background to black
+    legend.get_frame().set_edgecolor("white")  # Change legend border to white
+
+
+    # Show the updated plot in Streamlit
+    st.pyplot(fig)
+
+    
+    
+    #scatter plot to show the miles per gallon against the CO2 Emissions   the column names are Fuel Consumption Comb (L/100 km) and CO2 Emissions(g/km)
+    
+
+    st.title("Looker Dashboard")
 
     # Replace with your actual Looker Studio Embed URL
     looker_url = "https://lookerstudio.google.com/embed/reporting/8661ccb3-712d-45a7-b2c4-3a0468114c5a/page/lIl5E"
@@ -111,9 +155,6 @@ if app_mode == '02 Data visualization':
 
 
 if app_mode == '04 Prediction':
-    st.title("CO₂ Emissions Prediction")
-
-
     # Step 1: Clean data and prepare features
     X = df.drop(columns=["CO2 Emissions(g/km)","Make", "Model", "Vehicle Class", "Transmission", "Fuel Type","coordinates"])
     y = df["CO2 Emissions(g/km)"]
@@ -129,18 +170,26 @@ if app_mode == '04 Prediction':
     predictions = linear.predict(X_test)
     mae = mean_absolute_error(y_test, predictions)
 
-    # Correlation Heatmap
-    st.write("### Feature Correlation Heatmap")
-    fig, ax = plt.subplots(figsize=(10, 6))
-    corr_matrix = X.corr()
-    sns.heatmap(corr_matrix, annot=True, cmap="coolwarm", fmt=".2f", linewidths=0.5, ax=ax)
-    st.pyplot(fig)
-
-
     # Streamlit UI
     st.title("CO2 Emissions Prediction")
-    st.write("This app predicts CO2 emissions (g/km) based on vehicle attributes using linear regression.")
+    st.write("")
+    st.write("### Prediction Performance")
+    col1, col2 = st.columns(2)
+    st.markdown(
+            f'<div style="border: 2px solid gray; padding: 10px; height: 50px; text-align: center; font-weight: bold;">'
+            f'Average CO2 Emission:     {df["CO2 Emissions(g/km)"].mean():.2f} g/km'
+            '</div>', 
+            unsafe_allow_html=True
+        )
+    st.markdown(
+            f'<div style="border: 2px solid gray; padding: 10px; height: 50px; text-align: center; font-weight: bold;">'
+            f'Mean Absolute Error:     {mae:.2f} g/km'
+            '</div>', 
+            unsafe_allow_html=True
+        )
 
+    st.write("")
+    st.write("### Prediction Result")
     st.sidebar.header("Enter Vehicle Features")
     user_input = {}
     for col in X.columns:
@@ -148,15 +197,41 @@ if app_mode == '04 Prediction':
 
     # Convert user input into a DataFrame
     input_df = pd.DataFrame([user_input])
+    # Create an empty placeholder for prediction output
+    prediction_placeholder = st.empty()
 
     # Predict button
     if st.sidebar.button("Predict CO2 Emissions"):
         predicted_co2 = linear.predict(input_df)[0]
-        st.write("### Prediction Result")
-        st.write(f"**Predicted CO2 Emissions (g/km):** {predicted_co2:.2f}")
-        st.write(f"Model Mean Absolute Error: {mae:.2f}")
-
+        
+        # Update the placeholder with the prediction while keeping the frame
+        prediction_placeholder.markdown(
+            f'<div id="prediction-box" style="border: 2px solid gray; padding: 10px; height: 50px; text-align: center; font-weight: bold;">'
+            f'{predicted_co2:.2f}'
+            '</div>', 
+            unsafe_allow_html=True)
+    else:
+        # Display an empty box initially
+        prediction_placeholder.markdown(
+            '<div style="border: 2px solid gray; padding: 10px; height: 50px;"></div>',
+            unsafe_allow_html=True)
+    st.write("###  ")
     st.write("### Dataset Sample")
-    st.dataframe(df.head())
+    st.dataframe(df.head(5))
+    print(X.columns)
 
+
+    # Correlation Heatmap
+    numericals = df.drop(columns=["Make", "Model", "Vehicle Class", "Transmission", "Fuel Type","coordinates"])
+    st.write("###  ")
+    st.write("## Correlation Heatmap")
+    fig, ax = plt.subplots(figsize=(10, 7))
+    corr_matrix = numericals.corr()
+    sns.heatmap(corr_matrix, annot=True, cmap="BrBG", fmt=".2f", linewidths=0.5, ax=ax, annot_kws={"color": "white"})
+    ax.figure.set_facecolor((0.15, 0.15, 0.2))
+    plt.xticks(color="white")  # Change x-axis (column) labels color
+    plt.yticks(color="white")  # Change y-axis (row) labels color
+    cbar = ax.collections[0].colorbar  # Get color bar object
+    plt.setp(cbar.ax.get_yticklabels(), color="white")  # Change text label color
+    st.pyplot(fig)
     
