@@ -121,7 +121,7 @@ if app_mode == '01 Introduction':
 if app_mode == '02 Data visualization':
     st.title("Data Visualization")
     
-    st.markdown("### CO2 Emissions vs Fuel Consumption")
+    st.markdown("### CO2 Emissions vs Fuel Consumption Comb (L/100 km)")
 
     # Scatter plot to show the CO2 Emissions against miles per gallon
     # Create figure and axis
@@ -284,7 +284,7 @@ if app_mode == '03 Prediction':
             unsafe_allow_html=True)
     st.write("###  ")
     st.write("### Dataset Sample")
-    st.dataframe(df.head(5))
+    st.dataframe(df.head(10))
     print(X.columns)
 
 
