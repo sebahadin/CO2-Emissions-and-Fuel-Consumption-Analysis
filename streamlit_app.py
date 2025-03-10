@@ -17,8 +17,6 @@ from PIL import Image
 
 
 
-st.sidebar.header("Select Dataset")
-
 
 
 
