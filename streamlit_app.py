@@ -51,32 +51,41 @@ if app_mode == '01 Introduction':
     we can predict CO₂ emissions and identify trends that support environmental policies.
     """)
 
-   # Column descriptions
+  # Column Descriptions Dictionary
+    column_descriptions = {
+    "Make": "The company that manufactures the vehicle (e.g., Toyota, Ford).",
+    "Model": "The specific name or version of the vehicle under a manufacturer (e.g., Corolla, Mustang).",
+    "Vehicle Class": "A classification based on size, weight, and purpose (e.g., SUV, compact, sedan).",
+    "Engine Size (L)": "The total volume of all engine cylinders, affecting power and fuel consumption.",
+    "Cylinders": "The number of cylinders in the engine, impacting performance and efficiency.",
+    "Transmission": "The system that controls power delivery, such as automatic or manual.",
+    "Fuel Type": "The kind of fuel the vehicle requires (e.g., gasoline, diesel, electric, hybrid).",
+    "Fuel Consumption City (L/100 km)": "The amount of fuel consumed per 100 km in urban conditions.",
+    "Fuel Consumption Hwy (L/100 km)": "The fuel usage per 100 km when driving on highways.",
+    "Fuel Consumption Comb (L/100 km)": "The average fuel consumption, considering both city and highway driving.",
+    "Fuel Consumption Comb (mpg)": "The equivalent fuel efficiency measured in miles per gallon.",
+    "CO2 Emissions (g/km)": "The amount of carbon dioxide released per kilometer, reflecting environmental impact."
+}
+
+    # Header for column descriptions
     st.header("📌 Dataset Column Descriptions")
-    st.markdown("""
-    **Make**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='font-size: smaller;'>The company that manufactures the vehicle (e.g., Toyota, Ford).</span>  
-    **Model**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='font-size: smaller;'>The specific name or version of the vehicle under a manufacturer (e.g., Corolla, Mustang).</span>  
-    **Vehicle Class**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='font-size: smaller;'>A classification based on size, weight, and purpose (e.g., SUV, compact, sedan).</span>  
-    **Engine Size (L)**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='font-size: smaller;'>The total volume of all engine cylinders, affecting power and fuel consumption.</span>  
-    **Cylinders**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='font-size: smaller;'>The number of cylinders in the engine, impacting performance and efficiency.</span>  
-    **Transmission**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='font-size: smaller;'>The system that controls power delivery, such as automatic or manual.</span>  
-    **Fuel Type**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='font-size: smaller;'>The kind of fuel the vehicle requires (e.g., gasoline, diesel, electric, hybrid).</span>  
-    **Fuel Consumption City (L/100 km)**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='font-size: smaller;'>The amount of fuel consumed per 100 km in urban conditions.</span>  
-    **Fuel Consumption Hwy (L/100 km)**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='font-size: smaller;'>The fuel usage per 100 km when driving on highways.</span>  
-    **Fuel Consumption Comb (L/100 km)**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='font-size: smaller;'>The average fuel consumption, considering both city and highway driving.</span>  
-    **Fuel Consumption Comb (mpg)**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='font-size: smaller;'>The equivalent fuel efficiency measured in miles per gallon.</span>  
-    **CO2 Emissions (g/km)**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='font-size: smaller;'>The amount of carbon dioxide released per kilometer, reflecting environmental impact.</span>  
-    """, unsafe_allow_html=True)
+
+    # Column Selection for Display
+    columns = st.multiselect("Select Columns to Display", df.columns, default=df.columns.tolist())
+
+    # Display selected columns' descriptions
+    st.markdown("### Descriptions for Selected Columns")
+    for column in columns:
+        st.markdown(f"**{column}**: {column_descriptions.get(column, 'No description available for this column.')}")
+
     # Filtering Options
     st.subheader("Filter Data")
 
-    # Column Selection
-    columns = st.multiselect("Select Columns to Display", df.columns, default=df.columns.tolist())
-    filtered_df = df[columns]
-
     # Row Filtering
     num_rows = st.slider("Select number of rows to display", min_value=1, max_value=len(df), value=10)
-    filtered_df = filtered_df.head(num_rows)
+
+    # Filtered Data
+    filtered_df = df[columns].head(num_rows)
 
     # Display Filtered Data
     st.subheader("Dataset Overview")
