@@ -22,7 +22,7 @@ st.sidebar.header("Select Dataset")
 
 
 
-app_mode = st.sidebar.selectbox('Select a page >> ',['01 Introduction','02 Data visualization','04 Prediction'])
+app_mode = st.sidebar.selectbox('Select a page >> ',['01 Introduction','02 Data visualization','03 Prediction'])
 
 
 
@@ -184,14 +184,6 @@ if app_mode == '02 Data visualization':
     st.pyplot(fig)
 
 
-
-
-    
-
-
-
-
-    
     
     #scatter plot to show the miles per gallon against the CO2 Emissions   the column names are Fuel Consumption Comb (L/100 km) and CO2 Emissions(g/km)
     
