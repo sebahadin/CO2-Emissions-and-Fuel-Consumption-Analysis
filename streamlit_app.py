@@ -56,7 +56,7 @@ if app_mode == '01 Introduction':
     "Make": "The company that manufactures the vehicle (e.g., Toyota, Ford).",
     "Model": "The specific name or version of the vehicle under a manufacturer (e.g., Corolla, Mustang).",
     "Vehicle Class": "A classification based on size, weight, and purpose (e.g., SUV, compact, sedan).",
-    "Engine Size (L)": "The total volume of all engine cylinders, affecting power and fuel consumption.",
+    "Engine Size(L)": "The total volume of all engine cylinders, affecting power and fuel consumption.",
     "Cylinders": "The number of cylinders in the engine, impacting performance and efficiency.",
     "Transmission": "The system that controls power delivery, such as automatic or manual.",
     "Fuel Type": "The kind of fuel the vehicle requires (e.g., gasoline, diesel, electric, hybrid).",
