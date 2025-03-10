@@ -16,7 +16,7 @@ from PIL import Image
 
 
 
-app_mode = st.sidebar.selectbox('Select a page >> ',['01 Introduction','02 Data visualization','03 Prediction'])
+app_mode = st.sidebar.selectbox('Contents ',['01 Introduction','02 Data visualization','03 Prediction'])
 
 
 
