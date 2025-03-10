@@ -27,7 +27,13 @@ app_mode = st.sidebar.selectbox('Select a page >> ',['01 Introduction','02 Data 
 
 
 
-df = pd.read_csv("co2.csv")
+df1 = pd.read_csv("co2.csv")
+
+# map each letter to the corresponding fuel type. Z = Regular gasoline, D = Diesel, X = Premium gasoline, E = Ethanol, N = Natural gas
+
+df = df1.replace({"Fuel Type": {"Z": "Regular gasoline", "D": "Diesel", "X": "Premium gasoline", "E": "Ethanol", "N": "Natural gas"}})
+
+
 
 
 
@@ -95,10 +101,8 @@ if app_mode == '01 Introduction':
 
 if app_mode == '02 Data visualization':
     st.title("Data Visualization")
-
-
-
-    st.markdown("### ")
+    
+    st.markdown("### CO2 Emissions vs Fuel Consumption")
 
     # Scatter plot to show the CO2 Emissions against miles per gallon
     # Create figure and axis
@@ -116,6 +120,11 @@ if app_mode == '02 Data visualization':
         hue="Fuel Type", 
         ax=ax
     )
+   
+    # Set title and labels
+    ax.set_title("CO2 Emissions vs Fuel Consumption", color="white")
+    ax.set_xlabel("Fuel Consumption Comb (L/100 km)", color="white")
+    ax.set_ylabel("CO2 Emissions (g/km)", color="white")
 
     # Change text and ticks to white for visibility
     ax.xaxis.label.set_color("white")
@@ -127,20 +136,67 @@ if app_mode == '02 Data visualization':
     legend = ax.legend()
     for text in legend.get_texts():
         text.set_color("white")  # Change legend text to white
-
     legend.get_frame().set_facecolor("black")  # Change legend background to black
     legend.get_frame().set_edgecolor("white")  # Change legend border to white
-
-
     # Show the updated plot in Streamlit
     st.pyplot(fig)
+    # Scatter plot to show the CO2 Emissions against miles per gallon(mpg)
+    st.markdown("### CO2 Emissions vs Fuel Consumption (mpg)")
+    # Create figure and axis
+    fig, ax = plt.subplots(figsize=(10, 6))
+    # Set black background
+    ax.set_facecolor((0.15, 0.15, 0.2))  # Change the plot background to black
+    fig.patch.set_facecolor(((0.15, 0.15, 0.2)))  # Change the figure background to black
+
+
+
+
+
+    # Scatter plot with Seaborn
+    sns.scatterplot(
+        data=df, 
+        x="Fuel Consumption Comb (mpg)", 
+        y="CO2 Emissions(g/km)", 
+        hue="Fuel Type", 
+        ax=ax
+    )
+    
+
+    # Set title and labels
+    ax.set_title("CO2 Emissions vs Fuel Consumption (mpg)", color="white")
+    ax.set_xlabel("Fuel Consumption Comb (mpg)", color="white")
+    ax.set_ylabel("CO2 Emissions (g/km)", color="white")
+    # Change text and ticks to white for visibility
+    ax.xaxis.label.set_color("white")
+    ax.yaxis.label.set_color("white")
+    ax.tick_params(axis="x", colors="white")
+    ax.tick_params(axis="y", colors="white")
+    ax.title.set_color("white")
+
+    legend = ax.legend()
+    for text in legend.get_texts():
+        text.set_color("white")
+
+    legend.get_frame().set_facecolor("black")
+    legend.get_frame().set_edgecolor("white")
+
+    # Show the plot in Streamlit
+    st.pyplot(fig)
+
+
+
+
+    
+
+
+
 
     
     
     #scatter plot to show the miles per gallon against the CO2 Emissions   the column names are Fuel Consumption Comb (L/100 km) and CO2 Emissions(g/km)
     
 
-    st.title("Looker Dashboard")
+    st.title("Visualisation in Looker Studio ")
 
     # Replace with your actual Looker Studio Embed URL
     looker_url = "https://lookerstudio.google.com/embed/reporting/8661ccb3-712d-45a7-b2c4-3a0468114c5a/page/lIl5E"
