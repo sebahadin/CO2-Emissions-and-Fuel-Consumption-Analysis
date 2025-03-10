@@ -46,15 +46,31 @@ if app_mode == '01 Introduction':
     df = pd.read_csv("co2.csv")
 
     # Page Title and Introduction
-    st.title("CO₂ Emissions and Fuel Consumption Analysis")
+    st.title("CO₂ Emissions of Vehicles")
     st.header("Understanding Vehicle Emissions")
 
     st.write("""
     This dataset explores vehicle fuel consumption and CO₂ emissions, aiming to understand 
-    how different factors influence pollution levels. By analyzing fuel consumption and engine specifications, 
+    how different factors influence emission amount. By analyzing fuel consumption and engine specifications, 
     we can predict CO₂ emissions and identify trends that support environmental policies.
     """)
 
+   # Column descriptions
+    st.header("📌 Dataset Column Descriptions")
+    st.markdown("""
+    **Make**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='font-size: smaller;'>The company that manufactures the vehicle (e.g., Toyota, Ford).</span>  
+    **Model**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='font-size: smaller;'>The specific name or version of the vehicle under a manufacturer (e.g., Corolla, Mustang).</span>  
+    **Vehicle Class**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='font-size: smaller;'>A classification based on size, weight, and purpose (e.g., SUV, compact, sedan).</span>  
+    **Engine Size (L)**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='font-size: smaller;'>The total volume of all engine cylinders, affecting power and fuel consumption.</span>  
+    **Cylinders**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='font-size: smaller;'>The number of cylinders in the engine, impacting performance and efficiency.</span>  
+    **Transmission**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='font-size: smaller;'>The system that controls power delivery, such as automatic or manual.</span>  
+    **Fuel Type**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='font-size: smaller;'>The kind of fuel the vehicle requires (e.g., gasoline, diesel, electric, hybrid).</span>  
+    **Fuel Consumption City (L/100 km)**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='font-size: smaller;'>The amount of fuel consumed per 100 km in urban conditions.</span>  
+    **Fuel Consumption Hwy (L/100 km)**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='font-size: smaller;'>The fuel usage per 100 km when driving on highways.</span>  
+    **Fuel Consumption Comb (L/100 km)**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='font-size: smaller;'>The average fuel consumption, considering both city and highway driving.</span>  
+    **Fuel Consumption Comb (mpg)**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='font-size: smaller;'>The equivalent fuel efficiency measured in miles per gallon.</span>  
+    **CO2 Emissions (g/km)**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='font-size: smaller;'>The amount of carbon dioxide released per kilometer, reflecting environmental impact.</span>  
+    """, unsafe_allow_html=True)
     # Filtering Options
     st.subheader("Filter Data")
 
