@@ -64,8 +64,9 @@ if app_mode == '01 Introduction':
     "Fuel Consumption Hwy (L/100 km)": "The fuel usage per 100 km when driving on highways.",
     "Fuel Consumption Comb (L/100 km)": "The average fuel consumption, considering both city and highway driving.",
     "Fuel Consumption Comb (mpg)": "The equivalent fuel efficiency measured in miles per gallon.",
-    "CO2 Emissions (g/km)": "The amount of carbon dioxide released per kilometer, reflecting environmental impact."
-}
+    "CO2 Emissions(g/km)": "The amount of carbon dioxide released per kilometer, reflecting environmental impact.",
+    "coordinates": "The location of the vehicle manufacturer."
+   }
 
     # Header for column descriptions
     st.header("📌 Dataset Column Descriptions")
