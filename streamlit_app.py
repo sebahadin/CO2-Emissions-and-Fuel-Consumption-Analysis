@@ -200,7 +200,7 @@ if app_mode == '02 Data visualization':
     
 
 
-if app_mode == '04 Prediction':
+if app_mode == '03 Prediction':
     # Step 1: Clean data and prepare features
     X = df.drop(columns=["CO2 Emissions(g/km)","Make", "Model", "Vehicle Class", "Transmission", "Fuel Type","coordinates"])
     y = df["CO2 Emissions(g/km)"]
