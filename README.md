@@ -30,3 +30,63 @@ This Streamlit web application analyzes vehicle CO₂ emissions and fuel consump
   - [Pillow](https://pillow.readthedocs.io/) for image processing.
 - **Google Looker Studio:** For embedded dashboard.
 
+
+
+## 🚀 How to Use This App
+
+You can run this app locally using Python or inside a Docker container.
+
+---
+
+### 🧪 Option 1: Run Locally (Python Environment)
+
+#### 1. Clone the repository
+```bash
+git clone https://github.com/your-username/your-repo-name.git
+cd your-repo-name
+```
+
+#### 2. Install dependencies
+It is recommended to use a virtual environment.
+
+```bash
+pip install -r requirements.txt
+```
+
+#### 3. Run the Streamlit app
+```bash
+streamlit run streamlit_app.py
+```
+
+---
+
+### 🐳 Option 2: Run with Docker
+
+#### 1. Build the Docker image
+```bash
+docker build -t co2-emission-app .
+```
+
+#### 2. Run the container
+```bash
+docker run -p 8501:8501 co2-emission-app
+```
+
+Then open your browser and go to [http://localhost:8501](http://localhost:8501)
+
+---
+
+### 📁 File Structure
+```
+.
+├── streamlit_app.py         # Main Streamlit app
+├── requirements.txt         # Dependencies
+├── co2.csv                  # Dataset
+├── Dockerfile               # Container instructions
+├── README.md                # Project documentation
+```
+
+---
+
+### 📝 Notes
+- The app requires internet access to load the Google Looker Studio dashboard.
